@@ -67,7 +67,7 @@ def extract_keywords_by_group(text):
             continue
 
         if "negative" in line.lower() or line.strip().startswith("-[") or line.strip().startswith("-"):
-                continue  # Skip negative keyword lines
+            continue  # Skip negative keyword lines
 
             keyword = re.sub(r":.*", "", line).strip("[]\" ")
             if keyword:
