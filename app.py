@@ -3,16 +3,24 @@ import pandas as pd
 import re
 from io import StringIO
 from datetime import datetime, timedelta
+import unicodedata
+
+def normalize_date_string(date_str):
+    if isinstance(date_str, str):
+        return unicodedata.normalize("NFKD", date_str.replace("\u202f", " ").replace("\xa0", " ")).strip()
+    return date_str
 
 def convert_date(date_str):
     try:
-        return pd.to_datetime(date_str, format="%b %d, %Y, %I:%M:%S%p").strftime("%m/%d/%Y")
+        cleaned = normalize_date_string(date_str)
+        return pd.to_datetime(cleaned, format="%b %d, %Y, %I:%M:%S %p").strftime("%m/%d/%Y")
     except Exception:
         return None
 
 def is_valid_date(date_str):
     try:
-        pd.to_datetime(date_str, format="%b %d, %Y, %I:%M:%S%p")
+        cleaned = normalize_date_string(date_str)
+        pd.to_datetime(cleaned, format="%b %d, %Y, %I:%M:%S %p")
         return True
     except:
         return False
@@ -50,10 +58,6 @@ def extract_keywords_by_group(text):
 
     for line in lines:
         line = line.strip()
-        if "negative" in line.lower():
-            current_match_type = None
-            current_action = None
-            continue
 
         match_type = extract_match_type(line)
         action = extract_action(line)
@@ -63,6 +67,9 @@ def extract_keywords_by_group(text):
             continue
 
         if current_match_type and current_action:
+            if "negative" in line.lower():
+                continue  # Skip only the negative line
+
             keyword = re.sub(r":.*", "", line).strip("[]\" ")
             if keyword:
                 groupings.append((keyword, current_match_type, current_action))
@@ -71,8 +78,7 @@ def extract_keywords_by_group(text):
 
 st.set_page_config(page_title="Keyword Insights Extractor", layout="centered")
 
-# Placeholder for logo
-# st.image("your_logo.png", width=200)  Replace with actual logo filename in the deployed app
+# st.image("your_logo.png", width=200)  # Replace with actual logo filename in the deployed app
 
 st.title("Google Ads Keyword Change History Processor")
 st.markdown("""
@@ -103,6 +109,7 @@ if uploaded_file:
         if not required_cols.issubset(df.columns):
             st.error("The uploaded CSV is missing one or more required columns.")
         else:
+            df["Date & time"] = df["Date & time"].apply(normalize_date_string)
             df_cleaned = df[df["Date & time"].apply(is_valid_date)].copy()
             processed_data = []
 
