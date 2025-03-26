@@ -72,7 +72,7 @@ def extract_keywords_by_group(text):
 st.set_page_config(page_title="Keyword Insights Extractor", layout="centered")
 
 # Placeholder for logo
-st.image("your_logo.png", width=200)  # Replace with actual logo filename in the deployed app
+# st.image("your_logo.png", width=200)  Replace with actual logo filename in the deployed app
 
 st.title("Google Ads Keyword Change History Processor")
 st.markdown("""
