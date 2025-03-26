@@ -78,14 +78,14 @@ def extract_keywords_by_group(text):
 
 st.set_page_config(page_title="Keyword Insights Extractor", layout="centered")
 
-# st.image("your_logo.png", width=200)  # Replace with actual logo filename in the deployed app
+st.image("logo.svg", width=213)  # Display logo at 30% larger (164px → 213px)
 
 st.title("Google Ads Keyword Change History Processor")
 st.markdown("""
 Upload your **Google Ads Change History CSV file** below. This tool will extract all **Added** and **Enabled** keywords, organized by match type, and output them in a clean, flat format.
 
 **Important:**
-- When downloading the report from Google Ads, select **Change Type = Keywords only**
+- When running the Change history report from Google Ads, filter for **Item changed = Keyword**
 - Download the file as **plain CSV**, not Excel CSV format
 
 **Required columns in the input CSV** (can be in any order):
