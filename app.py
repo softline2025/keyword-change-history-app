@@ -62,11 +62,11 @@ def extract_keywords_by_group(text):
         match_type = extract_match_type(line)
         action = extract_action(line)
         if match_type and action:
-        if "keyword" not in line.lower():
-            continue  # skip changes unrelated to keywords
-        current_match_type = match_type
-        current_action = action
-        continue
+            if "keyword" not in line.lower():
+                continue  # skip changes unrelated to keywords
+            current_match_type = match_type
+            current_action = action
+            continue
 
         # Skip negative keyword lines
         if "negative" in line.lower() or line.startswith("-[") or line.startswith("-"):
