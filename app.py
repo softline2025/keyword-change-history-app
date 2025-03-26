@@ -78,7 +78,7 @@ def extract_keywords_by_group(text):
 
 st.set_page_config(page_title="Keyword Insights Extractor", layout="centered")
 
-st.image("logo.svg", width=213)  # Display logo at 30% larger (164px → 213px)
+st.image("logo.svg", width=256)
 
 st.title("Google Ads Keyword Change History Processor")
 st.markdown("""
