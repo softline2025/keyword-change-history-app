@@ -58,6 +58,11 @@ def extract_keywords_by_group(text):
 
     for line in lines:
         line = line.strip()
+        
+        # Reset context if line has a new group with a non-supported action like "paused"
+        if any(x in line.lower() for x in ["paused", "removed", "deleted"]):
+            current_action = None
+            current_match_type = None
 
         match_type = extract_match_type(line)
         action = extract_action(line)
