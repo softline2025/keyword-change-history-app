@@ -103,7 +103,7 @@ uploaded_file = st.file_uploader("Choose a plain CSV file", type="csv")
 
 if uploaded_file:
     try:
-        df = pd.read_csv(uploaded_file, encoding="utf-8")
+        df = pd.read_csv(uploaded_file, encoding="utf-8", skiprows=2)
 
         required_cols = {"Date & time", "User", "Campaign", "Ad group", "Changes"}
         if not required_cols.issubset(df.columns):
