@@ -90,6 +90,7 @@ Upload your **Google Ads Change History CSV file** below. This tool will extract
 **Important:**
 - When running the Change history report from Google Ads, filter for **Item changed = Keyword**
 - Download the file as **plain CSV**, not Excel CSV format
+- Do not edit or clean the CSV after downloading it — the tool is designed to handle the raw export as-is
 
 **Required columns in the input CSV** (can be in any order):
 - `Date & time`
