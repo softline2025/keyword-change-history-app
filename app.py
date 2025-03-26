@@ -71,8 +71,10 @@ def extract_keywords_by_group(text):
             continue
 
         if current_match_type and current_action:
-            keyword = re.sub(r":.*", "", line).strip("[]\" ")
+            keyword = re.sub(r":.*", "", line).strip("[]\" ").strip()
             if keyword:
+                if "keyword status" in keyword.lower() or "status change" in keyword.lower():
+                    continue  # skip group header mistakenly parsed as keyword
                 groupings.append((keyword, current_match_type, current_action))
 
     return groupings
